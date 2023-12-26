@@ -3,3 +3,110 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+
+
+/* UTILITY */
+
+:root {
+    --BG-COLOR: #333;
+    --FG-COLOR: #ccc;
+}
+
+body {
+    font-size: 2rem;
+    font-weight: bolder;
+
+    color: var(--FG-COLOR);
+    background-color: var(--BG-COLOR);
+}
+
+
+
+/* HEADER SECTION */
+
+.header {
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+
+    border: 5px solid var(--FG-COLOR);
+}
+.header > .project {
+    padding: 0px 20px 0px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: var(--FG-COLOR);
+}
+.header .project > h1 {
+    font-size: 2.5rem;
+
+    color: var(--BG-COLOR);
+}
+.header .project > .actions {
+    height: 100%;
+    padding: 10px 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+
+    background-color: red;
+}
+.header .project .actions > .drop-down {
+    height: 100%;
+    width: 50px;
+
+    background-color: purple;
+}
+.header .project .actions > .settings {
+    height: 100%;
+    width: 50px;
+
+    background-color: cyan;
+}
+
+
+
+/* CONTENT SECTION */
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* RESPONSIVENESS */
+
+@media only screen and (max-width: 460px) {
+    /* body {
+        background-color: red;
+    } */
+
+    .header .project > h1 {
+        font-size: 1.5rem;
+    }
+}
