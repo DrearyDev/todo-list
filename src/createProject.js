@@ -1,6 +1,13 @@
 
 function createProject(name="Project") {
-    return { name };
+
+    function addTodo(name, todoObject) {
+        this[name] = todoObject;
+    };
+
+
+
+    return { name, addTodo };
 };
 
 export { createProject };
