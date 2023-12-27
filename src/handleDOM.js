@@ -1,5 +1,6 @@
 import dropDownPng from './down-arrow.png';
 import settingsPng from './settings-icon.png';
+import { allProjects } from './trackAllProjects';
 
 const handleDOM = (() => {
 
@@ -54,6 +55,21 @@ const handleDOM = (() => {
         content.appendChild(main);
     };
 
+    const renderTodo = (todo) => {
+        let div = document.createElement('div');
+        
+        let divTitle = document.createElement('h2');
+        divTitle.innerText = todo.title;
+
+        let divDueDate = document.createElement('h2');
+        divDueDate.innerText = todo.dueDate;
+
+        div.appendChild(divTitle);
+        div.appendChild(divDueDate);
+
+        main.appendChild(div);
+    };
+
     const allListView = () => {
 
         createHeader();
@@ -62,9 +78,14 @@ const handleDOM = (() => {
         createMainDiv();
         addClass(main, 'all-list-view');
 
-
-
-
+        // render all todos from all projects on screen
+        allProjects.filter(object => {
+            for (let key in object) {
+                if (key !== 'project') {
+                    renderTodo(object[key]);
+                };
+            };
+        });
     };
 
 

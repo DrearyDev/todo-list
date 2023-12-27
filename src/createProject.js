@@ -5,9 +5,9 @@ function createProject(name="Project") {
 
     trackAllProjects(name);
 
-    function addTodo(name, todoObject) {
-        addTodoToAllProjects(this.name, name, todoObject);//accessing the name property on 'this'
-        this[name] = todoObject;//adding todoObject on new property with passed in name
+    function addTodo(todoObject) {
+        addTodoToAllProjects(this.name, todoObject.title, todoObject);
+        this[todoObject.title] = todoObject;
     };
 
 

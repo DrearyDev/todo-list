@@ -20,17 +20,15 @@ import { allProjects } from './trackAllProjects.js';
 
 let test = createProject('TestProject');
 
-test.addTodo('Todo#1', createTodo('title', 'desc', 'due', 'priority', 'check'));
-test.addTodo('Todo#2', createTodo('title', 'desc', 'due', 'priority', 'check'));
-test.addTodo('Todo#3', createTodo('title', 'desc', 'due', 'priority', 'check'));
+test.addTodo(createTodo('title1', 'desc', 'due', 'priority', 'check'));
+test.addTodo(createTodo('title2', 'desc', 'due', 'priority', 'check'));
+test.addTodo(createTodo('title3', 'desc', 'due', 'priority', 'check'));
 
 let testtwo = createProject('AnotherProject');
 
-testtwo.addTodo('Todo#4', createTodo('title', 'desc', 'due', 'priority', 'check'));
-testtwo.addTodo('Todo#5', createTodo('title', 'desc', 'due', 'priority', 'check'));
-testtwo.addTodo('Todo#6', createTodo('title', 'desc', 'due', 'priority', 'check'));
-
-console.log(allProjects);
+testtwo.addTodo(createTodo('title4', 'desc', 'due', 'priority', 'check'));
+testtwo.addTodo(createTodo('title5', 'desc', 'due', 'priority', 'check'));
+testtwo.addTodo(createTodo('title6', 'desc', 'due', 'priority', 'check'));
 
 
 

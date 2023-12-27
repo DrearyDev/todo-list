@@ -104,6 +104,13 @@ body {
 
     background-color: orange;
 }
+.main.main.all-list-view > div {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
 
 
