@@ -1,3 +1,5 @@
+import dropDownPng from './down-arrow.png';
+import settingsPng from './settings-icon.png';
 
 const handleDOM = (() => {
 
@@ -32,13 +34,15 @@ const handleDOM = (() => {
         addClass(actions, 'actions');
         project.appendChild(actions);
 
-        // create dropDown div
-        dropDown = document.createElement('div');
+        // create dropDown Icon
+        dropDown = new Image();
+        dropDown.src = dropDownPng;
         addClass(dropDown, 'drop-down');
         actions.appendChild(dropDown);
 
-        // create settings div
-        settings = document.createElement('div');
+        // create settings Icon
+        settings = new Image();
+        settings.src = settingsPng;
         addClass(settings, 'settings');
         actions.appendChild(settings);
     };

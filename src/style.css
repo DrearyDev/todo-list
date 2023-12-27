@@ -11,6 +11,8 @@
 :root {
     --BG-COLOR: #333;
     --FG-COLOR: #ccc;
+
+    --HOVER-COLOR: #555;
 }
 
 body {
@@ -61,20 +63,17 @@ body {
     align-items: center;
     justify-content: end;
     gap: 10px;
-
-    background-color: red;
 }
-.header .project .actions > .drop-down {
-    height: 100%;
-    width: 50px;
+.header .project .actions > img {
+    height: 35px;
+    width: 35px;
 
-    background-color: purple;
+    /* make black icon color #333 ( --BG-COLOR ) */
+    filter: invert(18%) sepia(1%) saturate(4281%) hue-rotate(45deg) brightness(104%) contrast(93%);
 }
-.header .project .actions > .settings {
-    height: 100%;
-    width: 50px;
-
-    background-color: cyan;
+.header .project .actions > img:hover {
+    /* make icon color #555 ( --HOVER-COLOR ) */
+    filter: invert(31%) sepia(0%) saturate(2188%) hue-rotate(134deg) brightness(95%) contrast(82%);
 }
 
 
@@ -97,8 +96,11 @@ body {
     border: 5px solid var(--FG-COLOR);
 }
 .main.all-list-view {
-    display: grid;
-    grid-template-columns: 1fr;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     background-color: orange;
 }
