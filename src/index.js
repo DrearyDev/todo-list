@@ -1,5 +1,4 @@
 import './style.css';
-import { createTodo } from './createTodo.js';
 import { createProject } from './createProject.js';
 import { handleDOM } from './handleDOM.js';
 import { allProjects } from './trackAllProjects.js';
@@ -20,15 +19,15 @@ import { allProjects } from './trackAllProjects.js';
 
 let test = createProject('TestProject');
 
-test.addTodo(createTodo('title1', 'desc', 'due', 'priority', 'check'));
-test.addTodo(createTodo('title2', 'desc', 'due', 'priority', 'check'));
-test.addTodo(createTodo('title3', 'desc', 'due', 'priority', 'check'));
+test.addTodo('title1', 'desc', 'due', 'priority', 'check');
+test.addTodo('title2', 'desc', 'due', 'priority', 'check');
+test.addTodo('title3', 'desc', 'due', 'priority', 'check');
 
 let testtwo = createProject('AnotherProject');
 
-testtwo.addTodo(createTodo('title4', 'desc', 'due', 'priority', 'check'));
-testtwo.addTodo(createTodo('title5', 'desc', 'due', 'priority', 'check'));
-testtwo.addTodo(createTodo('title6', 'desc', 'due', 'priority', 'check'));
+testtwo.addTodo('title4', 'desc', 'due', 'priority', 'check');
+testtwo.addTodo('title5', 'desc', 'due', 'priority', 'check');
+testtwo.addTodo('title6', 'desc', 'due', 'priority', 'check');
 
 
 

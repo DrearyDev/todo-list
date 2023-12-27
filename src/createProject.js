@@ -5,9 +5,17 @@ function createProject(name="Project") {
 
     trackAllProjects(name);
 
-    function addTodo(todoObject) {
-        addTodoToAllProjects(this.name, todoObject.title, todoObject);
-        this[todoObject.title] = todoObject;
+    function addTodo(title, desc, dueDate, priority, checklist) {
+        let todoObject = {
+            title,
+            desc,
+            dueDate,
+            priority,
+            checklist
+        };
+
+        addTodoToAllProjects(this.name, title, todoObject);
+        this[title] = todoObject;
     };
 
 

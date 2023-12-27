@@ -83,6 +83,7 @@ const handleDOM = (() => {
             for (let key in object) {
                 if (key !== 'project') {
                     renderTodo(object[key]);
+                    console.log(object[key]);
                 };
             };
         });
