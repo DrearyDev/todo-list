@@ -4,40 +4,60 @@ const handleDOM = (() => {
     const body = document.querySelector('body');
     const content = document.querySelector('.content');
     let header, project, projectTitle, actions, dropDown, settings;
+    let main;
+
+    const addClass = (ele, addClass) => {
+        ele.classList.add(addClass);
+    };
+
+    const changeInnerText = (ele, changeText) => {
+        ele.innerText = changeText;
+    };
 
     const createHeader = () => {
         // create header
         header = document.createElement('div');
-        header.classList.add('header');
+        addClass(header, 'header');
         body.insertBefore(header, content);
 
         // create project div
         project = document.createElement('div');
-        project.classList.add('project');
+        addClass(project, 'project');
         header.appendChild(project);
         projectTitle = document.createElement('h1');
         project.appendChild(projectTitle);
 
         // create actions div
         actions = document.createElement('div');
-        actions.classList.add('actions');
+        addClass(actions, 'actions');
         project.appendChild(actions);
 
         // create dropDown div
         dropDown = document.createElement('div');
-        dropDown.classList.add('drop-down');
+        addClass(dropDown, 'drop-down');
         actions.appendChild(dropDown);
 
         // create settings div
         settings = document.createElement('div');
-        settings.classList.add('settings');
+        addClass(settings, 'settings');
         actions.appendChild(settings);
+    };
+
+    const createMainDiv = () => {
+        // create main div
+        main = document.createElement('div');
+        addClass(main, 'main');
+        content.appendChild(main);
     };
 
     const allListView = () => {
 
         createHeader();
-        projectTitle.innerText = 'All List View';
+        changeInnerText(projectTitle, 'All List View');
+
+        createMainDiv();
+        addClass(main, 'all-list-view');
+
 
 
 
