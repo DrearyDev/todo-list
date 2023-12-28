@@ -125,11 +125,30 @@ body {
     float: right;
     right: 0;
 
-    background-color: red;
+    color: var(--BG-COLOR);
+    border: 5px solid var(--BG-COLOR);
+    background-color: var(--FG-COLOR);
 }
 .header .project .actions .down-arrow .drop-down.visible,
 .header .project .actions .settings .drop-down.visible {
     display: inline-block;
+}
+.header .project .actions .down-arrow .drop-down > div,
+.header .project .actions .settings .drop-down > div {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.header .project .actions .down-arrow .drop-down > div:hover,
+.header .project .actions .settings .drop-down > div:hover {
+    cursor: pointer;
+    color: var(--FG-COLOR);
+    background-color: var(--HOVER-COLOR);
 }
 
 
