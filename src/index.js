@@ -31,29 +31,24 @@ testtwo.addTodo('title6', 'desc', 'due', 3, 'check');
 
 handleDOM.allListView();
 
-const downArrow = document.querySelector('.down-arrow');
-const settings = document.querySelector('.settings');
+const downArrowImg = document.querySelector('.down-arrow > img');
+const settingsImg = document.querySelector('.settings > img');
 
+downArrowImg.addEventListener('click', (e) => {
+    e.target.nextSibling.classList.toggle('visible');
+});
 
-downArrow.addEventListener('click', (e) => {
-    downArrow.children[1].classList.toggle('visible');
-})
-
-settings.addEventListener('click', (e) => {
-    settings.children[1].classList.toggle('visible');
-})
-
-
+settingsImg.addEventListener('click', (e) => {
+    e.target.nextSibling.classList.toggle('visible');
+});
 
 window.addEventListener('click', (e) => {
-    console.log(e);
-
-    if (e.target !== downArrow.children[0]) {
-        downArrow.children[1].classList.remove('visible');
+    if (e.target !== downArrowImg) { 
+        downArrowImg.nextSibling.classList.remove('visible');
     };
 
-    if (e.target !== settings.children[0]) {
-        settings.children[1].classList.remove('visible');
+    if (e.target !== settingsImg) { 
+        settingsImg.nextSibling.classList.remove('visible');
     };
 });
 
