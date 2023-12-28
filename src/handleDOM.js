@@ -51,6 +51,7 @@ const handleDOM = (() => {
     };
 
     const updatePriorityLevel = (ele, priority) => {
+        if (priority === 10) { priority-- };
         addClass(ele, priorityClasses[priority]);
     };
 
