@@ -8,6 +8,8 @@ const handleDOM = (() => {
     const content = document.querySelector('.content');
     let header, project, projectTitle, actions, downArrow, arrowMenu, settings, settingsMenu;
     let main;
+    let arrowMenuItems = ['arrow', 'menu', 'options'];
+    let settingsMenuItems = ['settings', 'menu', 'options'];
 
     let priorityClasses = [
         'low',
@@ -39,7 +41,7 @@ const handleDOM = (() => {
     };
 
     const createHeader = () => {
-        // create header
+        // create header div
         header = document.createElement('div');
         addClass(header, 'header');
         body.insertBefore(header, content);
@@ -62,7 +64,12 @@ const handleDOM = (() => {
         addClass(downArrow, 'down-arrow');
         arrowMenu = document.createElement('div');
         addClass(arrowMenu, 'drop-down');
-        changeInnerText(arrowMenu, 'lkdjldskjflkdjflkdjf')
+        for (let i in arrowMenuItems) {
+            let tmp = document.createElement('div');
+            addClass(tmp, `option${i}`);
+            changeInnerText(tmp, arrowMenuItems[i]);
+            arrowMenu.appendChild(tmp);
+        };
         downArrow.appendChild(arrowMenu);
         actions.appendChild(downArrow);
 
@@ -72,7 +79,12 @@ const handleDOM = (() => {
         addClass(settings, 'settings');
         settingsMenu = document.createElement('div');
         addClass(settingsMenu, 'drop-down');
-        changeInnerText(settingsMenu, 'lkdjldskjflkdjflkdjf')
+        for (let i in settingsMenuItems) {
+            let tmp = document.createElement('div');
+            addClass(tmp, `option${i}`);
+            changeInnerText(tmp, settingsMenuItems[i]);
+            settingsMenu.appendChild(tmp);
+        };
         settings.appendChild(settingsMenu);
         actions.appendChild(settings);
     };
@@ -109,6 +121,8 @@ const handleDOM = (() => {
 
         createHeader();
         changeInnerText(projectTitle, 'All List View');
+
+        console.log(arrowMenu, settingsMenu);
 
         createMainDiv();
         addClass(main, 'all-list-view');
