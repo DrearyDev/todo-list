@@ -28,6 +28,16 @@ const handleDOM = (() => {
         ele.classList.add(addClass);
     };
 
+    const addOptionsToMenu = (appendTo, arr) => {
+        for (let i in arr) {
+            let tmp = document.createElement('div');
+            addClass(tmp, `option${i}`);
+            changeInnerText(tmp, arr[i]);
+            appendTo.appendChild(tmp);
+        };
+
+    };
+
     const changeInnerText = (ele, changeText) => {
         ele.innerText = changeText;
     };
@@ -40,80 +50,73 @@ const handleDOM = (() => {
         appendto.appendChild(tmp);
     };
 
+    const updatePriorityLevel = (ele, priority) => {
+        addClass(ele, priorityClasses[priority]);
+    };
+
+    const createActionsDiv = (appendTo) => {
+        actions = document.createElement('div');
+        addClass(actions, 'actions');
+        appendTo.appendChild(actions);
+        createDownArrowMenu(actions);
+        createSettingsMenu(actions);
+    };
+
+    const createDownArrowMenu = (appendTo) => {
+        downArrow = document.createElement('div');
+        createIcon(downArrowPng, downArrow);
+        addClass(downArrow, 'down-arrow');
+        arrowMenu = document.createElement('div');
+        addClass(arrowMenu, 'drop-down');
+        addOptionsToMenu(arrowMenu, arrowMenuItems);
+        downArrow.appendChild(arrowMenu);
+        appendTo.appendChild(downArrow);
+    };
+
+    const createSettingsMenu = (appendTo) => {
+        settings = document.createElement('div');
+        createIcon(settingsPng, settings);
+        addClass(settings, 'settings');
+        settingsMenu = document.createElement('div');
+        addClass(settingsMenu, 'drop-down');
+        addOptionsToMenu(settingsMenu, settingsMenuItems);
+        settings.appendChild(settingsMenu);
+        appendTo.appendChild(settings);
+    };
+
     const createHeader = () => {
         // create header div
         header = document.createElement('div');
         addClass(header, 'header');
         body.insertBefore(header, content);
 
-        // create project div
+        // create project div ( div within header )
         project = document.createElement('div');
         addClass(project, 'project');
         header.appendChild(project);
         projectTitle = document.createElement('h1');
         project.appendChild(projectTitle);
 
-        // create actions div
-        actions = document.createElement('div');
-        addClass(actions, 'actions');
-        project.appendChild(actions);
-
-        // create downArrow Icon
-        downArrow = document.createElement('div');
-        createIcon(downArrowPng, downArrow);
-        addClass(downArrow, 'down-arrow');
-        arrowMenu = document.createElement('div');
-        addClass(arrowMenu, 'drop-down');
-        for (let i in arrowMenuItems) {
-            let tmp = document.createElement('div');
-            addClass(tmp, `option${i}`);
-            changeInnerText(tmp, arrowMenuItems[i]);
-            arrowMenu.appendChild(tmp);
-        };
-        downArrow.appendChild(arrowMenu);
-        actions.appendChild(downArrow);
-
-        // create settings Icon
-        settings = document.createElement('div');
-        createIcon(settingsPng, settings);
-        addClass(settings, 'settings');
-        settingsMenu = document.createElement('div');
-        addClass(settingsMenu, 'drop-down');
-        for (let i in settingsMenuItems) {
-            let tmp = document.createElement('div');
-            addClass(tmp, `option${i}`);
-            changeInnerText(tmp, settingsMenuItems[i]);
-            settingsMenu.appendChild(tmp);
-        };
-        settings.appendChild(settingsMenu);
-        actions.appendChild(settings);
+        // create actions div ( div that contains menus )
+        createActionsDiv(project);
     };
 
     const createMainDiv = () => {
-        // create main div
+        // create main div ( div with all content )
         main = document.createElement('div');
         addClass(main, 'main');
         content.appendChild(main);
     };
 
-    const updatePriorityLevel = (ele, priority) => {
-        addClass(ele, priorityClasses[priority]);
-    };
-
     const renderTodo = (todo) => {
         let div = document.createElement('div');
-        
         let divTitle = document.createElement('h2');
         divTitle.innerText = todo.title;
-
         let divDueDate = document.createElement('h2');
         divDueDate.innerText = todo.dueDate;
-
         div.appendChild(divTitle);
         div.appendChild(divDueDate);
-
         updatePriorityLevel(div, todo.priority);
-
         main.appendChild(div);
     };
 
