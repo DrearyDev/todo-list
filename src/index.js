@@ -19,15 +19,15 @@ import { allProjects } from './trackAllProjects.js';
 
 let test = createProject('TestProject');
 
-test.addTodo('title1', 'desc', 'due', 'priority', 'check');
-test.addTodo('title2', 'desc', 'due', 'priority', 'check');
-test.addTodo('title3', 'desc', 'due', 'priority', 'check');
+test.addTodo('title1', 'desc', 'due', 2, 'check');
+test.addTodo('title2', 'desc', 'due', 6, 'check');
+test.addTodo('title3', 'desc', 'due', 0, 'check');
 
 let testtwo = createProject('AnotherProject');
 
-testtwo.addTodo('title4', 'desc', 'due', 'priority', 'check');
-testtwo.addTodo('title5', 'desc', 'due', 'priority', 'check');
-testtwo.addTodo('title6', 'desc', 'due', 'priority', 'check');
+testtwo.addTodo('title4', 'desc', 'due', 5, 'check');
+testtwo.addTodo('title5', 'desc', 'due', 9, 'check');
+testtwo.addTodo('title6', 'desc', 'due', 3, 'check');
 
 
 
@@ -41,5 +41,6 @@ All 'Todos' are Objects
 'Todos' can only be made on a 'Project' but there is an 'All List View'
 
 - You can't have 2 'Projects' with the same name
+- Priority must be from 0-10 (inclusive)
 
 */

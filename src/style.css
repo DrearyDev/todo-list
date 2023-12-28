@@ -14,6 +14,12 @@
     --FG-COLOR: #ccc;
 
     --HOVER-COLOR: #555;
+
+    --LOW-PRIORITY-COLOR: hsl(100, 100%, 80%);
+    --LOW-MEDIUM-PRIORITY-COLOR: hsl(200, 100%, 80%);
+    --MEDIUM-PRIORITY-COLOR: hsl(50, 100%, 80%);
+    --MEDIUM-HIGH-PRIORITY-COLOR: hsl(300, 100%, 80%);
+    --HIGH-PRIORITY-COLOR: hsl(0, 100%, 80%);
 }
 
 body {
@@ -26,6 +32,26 @@ body {
 
     color: var(--FG-COLOR);
     background-color: var(--BG-COLOR);
+}
+
+
+
+/* PRIORITY COLOR CLASSES */
+
+.low {
+    background-color: var(--LOW-PRIORITY-COLOR);
+}
+.low-medium {
+    background-color: var(--LOW-MEDIUM-PRIORITY-COLOR);
+}
+.medium {
+    background-color: var(--MEDIUM-PRIORITY-COLOR);
+}
+.medium-high {
+    background-color: var(--MEDIUM-HIGH-PRIORITY-COLOR);
+}
+.high {
+    background-color: var(--HIGH-PRIORITY-COLOR);
 }
 
 
@@ -102,15 +128,17 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    background-color: orange;
+    gap: 10px;
 }
 .main.main.all-list-view > div {
     width: 100%;
+    padding: 10px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    color: var(--BG-COLOR);
 }
 
 

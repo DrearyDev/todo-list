@@ -9,6 +9,19 @@ const handleDOM = (() => {
     let header, project, projectTitle, actions, dropDown, settings;
     let main;
 
+    let priorityClasses = [
+        'low',
+        'low',
+        'low-medium',
+        'low-medium',
+        'low-medium',
+        'medium',
+        'medium-high',
+        'medium-high',
+        'medium-high',
+        'high'
+    ];
+
     const addClass = (ele, addClass) => {
         ele.classList.add(addClass);
     };
@@ -55,6 +68,10 @@ const handleDOM = (() => {
         content.appendChild(main);
     };
 
+    const updatePriorityLevel = (ele, priority) => {
+        addClass(ele, priorityClasses[priority]);
+    };
+
     const renderTodo = (todo) => {
         let div = document.createElement('div');
         
@@ -66,6 +83,8 @@ const handleDOM = (() => {
 
         div.appendChild(divTitle);
         div.appendChild(divDueDate);
+
+        updatePriorityLevel(div, todo.priority);
 
         main.appendChild(div);
     };
@@ -83,7 +102,6 @@ const handleDOM = (() => {
             for (let key in object) {
                 if (key !== 'project') {
                     renderTodo(object[key]);
-                    console.log(object[key]);
                 };
             };
         });
