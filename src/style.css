@@ -91,17 +91,45 @@ body {
     justify-content: end;
     gap: 10px;
 }
-.header .project .actions > img {
+.header .project .actions > div {
+    position: relative;
+    display: inline-block;
+}
+.header .project .actions .down-arrow,
+.header .project .actions .settings {
+    display: inline-block;
+    position: relative;
+}
+.header .project .actions .down-arrow > img,
+.header .project .actions .settings > img {
     height: 35px;
     width: 35px;
     user-select: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
 
     /* make black icon color #333 ( --BG-COLOR ) */
     filter: invert(18%) sepia(1%) saturate(4281%) hue-rotate(45deg) brightness(104%) contrast(93%);
 }
-.header .project .actions > img:hover {
+.header .project .actions .down-arrow > img:hover, 
+.header .project .actions .settings > img:hover {
     /* make icon color #555 ( --HOVER-COLOR ) */
     filter: invert(31%) sepia(0%) saturate(2188%) hue-rotate(134deg) brightness(95%) contrast(82%);
+}
+.header .project .actions .down-arrow .drop-down,
+.header .project .actions .settings .drop-down {
+    display: none;
+    position: absolute;
+    float: right;
+    right: 0;
+
+    background-color: red;
+}
+.header .project .actions .down-arrow .drop-down.visible,
+.header .project .actions .settings .drop-down.visible {
+    display: inline-block;
 }
 
 
@@ -170,7 +198,8 @@ body {
         font-size: 2rem;
     }
 
-    .header .project .actions > img {
+    .header .project .actions .down-arrow > img,
+    .header .project .actions .settings > img {
         height: 30px;
         width: 30px;
     }

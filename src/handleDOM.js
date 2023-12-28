@@ -1,4 +1,4 @@
-import dropDownPng from './down-arrow.png';
+import downArrowPng from './down-arrow.png';
 import settingsPng from './settings-icon.png';
 import { allProjects } from './trackAllProjects';
 
@@ -6,7 +6,7 @@ const handleDOM = (() => {
 
     const body = document.querySelector('body');
     const content = document.querySelector('.content');
-    let header, project, projectTitle, actions, dropDown, settings;
+    let header, project, projectTitle, actions, downArrow, arrowMenu, settings, settingsMenu;
     let main;
 
     let priorityClasses = [
@@ -30,6 +30,14 @@ const handleDOM = (() => {
         ele.innerText = changeText;
     };
 
+    const createIcon = (img, appendto) => {
+        let tmp = new Image();
+        tmp.src = img;
+        addClass(tmp, 'icon');
+        tmp.setAttribute('draggable', false);
+        appendto.appendChild(tmp);
+    };
+
     const createHeader = () => {
         // create header
         header = document.createElement('div');
@@ -48,18 +56,24 @@ const handleDOM = (() => {
         addClass(actions, 'actions');
         project.appendChild(actions);
 
-        // create dropDown Icon
-        dropDown = new Image();
-        dropDown.src = dropDownPng;
-        dropDown.setAttribute('draggable', false);
-        addClass(dropDown, 'drop-down');
-        actions.appendChild(dropDown);
+        // create downArrow Icon
+        downArrow = document.createElement('div');
+        createIcon(downArrowPng, downArrow);
+        addClass(downArrow, 'down-arrow');
+        arrowMenu = document.createElement('div');
+        addClass(arrowMenu, 'drop-down');
+        changeInnerText(arrowMenu, 'lkdjldskjflkdjflkdjf')
+        downArrow.appendChild(arrowMenu);
+        actions.appendChild(downArrow);
 
         // create settings Icon
-        settings = new Image();
-        settings.src = settingsPng;
-        settings.setAttribute('draggable', false);
+        settings = document.createElement('div');
+        createIcon(settingsPng, settings);
         addClass(settings, 'settings');
+        settingsMenu = document.createElement('div');
+        addClass(settingsMenu, 'drop-down');
+        changeInnerText(settingsMenu, 'lkdjldskjflkdjflkdjf')
+        settings.appendChild(settingsMenu);
         actions.appendChild(settings);
     };
 
