@@ -1,5 +1,5 @@
-import downArrowPng from './down-arrow.png';
-import settingsPng from './settings-icon.png';
+import downArrowPng from './down-arrow.svg';
+import settingsPng from './settings-icon.svg';
 import { allProjects } from './trackAllProjects';
 
 const handleDOM = (() => {
