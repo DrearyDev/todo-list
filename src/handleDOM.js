@@ -51,12 +51,14 @@ const handleDOM = (() => {
         // create dropDown Icon
         dropDown = new Image();
         dropDown.src = dropDownPng;
+        dropDown.setAttribute('draggable', false);
         addClass(dropDown, 'drop-down');
         actions.appendChild(dropDown);
 
         // create settings Icon
         settings = new Image();
         settings.src = settingsPng;
+        settings.setAttribute('draggable', false);
         addClass(settings, 'settings');
         actions.appendChild(settings);
     };

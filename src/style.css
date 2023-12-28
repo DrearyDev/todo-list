@@ -94,6 +94,7 @@ body {
 .header .project .actions > img {
     height: 35px;
     width: 35px;
+    user-select: none;
 
     /* make black icon color #333 ( --BG-COLOR ) */
     filter: invert(18%) sepia(1%) saturate(4281%) hue-rotate(45deg) brightness(104%) contrast(93%);
@@ -130,7 +131,7 @@ body {
     align-items: center;
     gap: 10px;
 }
-.main.main.all-list-view > div {
+.main.all-list-view > div {
     width: 100%;
     padding: 10px;
 
@@ -139,6 +140,9 @@ body {
     justify-content: space-between;
 
     color: var(--BG-COLOR);
+}
+.main.all-list-view div > h2 {
+    font-size: 2rem;
 }
 
 
@@ -163,6 +167,15 @@ body {
     } */
 
     .header .project > h1 {
+        font-size: 2rem;
+    }
+
+    .header .project .actions > img {
+        height: 30px;
+        width: 30px;
+    }
+
+    .main.all-list-view div > h2 {
         font-size: 1.5rem;
     }
 }
