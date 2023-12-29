@@ -7,9 +7,11 @@ const handleDOM = (() => {
     const body = document.querySelector('body');
     const content = document.querySelector('.content');
     let header, project, projectTitle, actions, downArrow, arrowMenu, settings, settingsMenu;
+    let h2, projectMenu;
     let main;
     let arrowMenuItems = ['arrow', 'menu', 'options'];
     let settingsMenuItems = ['settings', 'menu', 'options'];
+    let projectMenuItems = [];
 
     let priorityClasses = [
         'low',
@@ -55,10 +57,26 @@ const handleDOM = (() => {
         addClass(ele, priorityClasses[priority]);
     };
 
-    const createActionsDiv = (appendTo) => {
+    const createProjectDiv = () => {
+        project = document.createElement('div');
+        addClass(project, 'project');
+        header.appendChild(project);
+        projectTitle = document.createElement('div');
+        addClass(projectTitle, 'title');
+        h2 = document.createElement('h2');
+        projectTitle.appendChild(h2);
+        projectMenu = document.createElement('div');
+        addClass(projectMenu, 'drop-down');
+        projectMenuItems = allProjects.map(o => o.project);
+        addOptionsToMenu(projectMenu, projectMenuItems);
+        projectTitle.appendChild(projectMenu);
+        project.appendChild(projectTitle);
+    };
+
+    const createActionsDiv = () => {
         actions = document.createElement('div');
         addClass(actions, 'actions');
-        appendTo.appendChild(actions);
+        project.appendChild(actions);
         createDownArrowMenu(actions);
         createSettingsMenu(actions);
     };
@@ -92,14 +110,10 @@ const handleDOM = (() => {
         body.insertBefore(header, content);
 
         // create project div ( div within header )
-        project = document.createElement('div');
-        addClass(project, 'project');
-        header.appendChild(project);
-        projectTitle = document.createElement('h1');
-        project.appendChild(projectTitle);
+        createProjectDiv();
 
         // create actions div ( div that contains menus )
-        createActionsDiv(project);
+        createActionsDiv();
     };
 
     const createMainDiv = () => {
@@ -124,9 +138,7 @@ const handleDOM = (() => {
     const allListView = () => {
 
         createHeader();
-        changeInnerText(projectTitle, 'All List View');
-
-        console.log(arrowMenu, settingsMenu);
+        changeInnerText(h2, 'All List View');
 
         createMainDiv();
         addClass(main, 'all-list-view');

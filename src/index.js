@@ -33,12 +33,17 @@ handleDOM.allListView();
 
 const downArrowImg = document.querySelector('.down-arrow > img');
 const settingsImg = document.querySelector('.settings > img');
+const title = document.querySelector('.title > h2');
 
 downArrowImg.addEventListener('click', (e) => {
     e.target.nextSibling.classList.toggle('visible');
 });
 
 settingsImg.addEventListener('click', (e) => {
+    e.target.nextSibling.classList.toggle('visible');
+});
+
+title.addEventListener('click', (e) => {
     e.target.nextSibling.classList.toggle('visible');
 });
 
@@ -49,6 +54,10 @@ window.addEventListener('click', (e) => {
 
     if (e.target !== settingsImg) { 
         settingsImg.nextSibling.classList.remove('visible');
+    };
+
+    if (e.target !== title) {
+        title.nextSibling.classList.remove('visible');
     };
 });
 
