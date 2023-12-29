@@ -31,10 +31,11 @@ const handleDOM = (() => {
     };
 
     const addOptionsToMenu = (appendTo, arr) => {
+        console.log(arr);
         for (let i in arr) {
             let tmp = document.createElement('div');
-            addClass(tmp, `option${i}`);
-            changeInnerText(tmp, arr[i]);
+            addClass(tmp, `${arr[i]}`);
+            changeInnerText(tmp, arr[i].replace(/-/g, ' '));
             appendTo.appendChild(tmp);
         };
 
@@ -68,6 +69,7 @@ const handleDOM = (() => {
         projectMenu = document.createElement('div');
         addClass(projectMenu, 'drop-down');
         projectMenuItems = allProjects.map(o => o.project);
+        projectMenuItems.push('All-List-View');
         addOptionsToMenu(projectMenu, projectMenuItems);
         projectTitle.appendChild(projectMenu);
         project.appendChild(projectTitle);
@@ -135,8 +137,11 @@ const handleDOM = (() => {
         main.appendChild(div);
     };
 
-    const allListView = () => {
+    const clearMain = () => {
+        main.innerText = '';
+    };
 
+    const defaultView = () => {
         createHeader();
         changeInnerText(h2, 'All List View');
 
@@ -153,11 +158,48 @@ const handleDOM = (() => {
         });
     };
 
+    const allListView = () => {
+        content.innerText = '';
+
+        changeInnerText(h2, 'All List View');
+
+        createMainDiv();
+        addClass(main, 'all-list-view');
+
+        // render all todos from all projects on screen
+        allProjects.filter(object => {
+            for (let key in object) {
+                if (key !== 'project') {
+                    renderTodo(object[key]);
+                };
+            };
+        });
+    };
+
+    const projectView = (projectName) => {
+        clearMain();
+
+        //filter allProjects for project that was clicked
+        let result = allProjects.filter(object => {
+            return object.project === projectName;
+        });
+
+        //render all todos from the selected project
+        result.filter(object => {
+            for (let key in object) {
+                if (key !== 'project') {
+                    console.log(object[key]);
+                    renderTodo(object[key]);
+                };
+            };
+        });
+    };
+
 
     
 
 
-    return { allListView };
+    return { allListView, projectView, defaultView };
 })();
 
 export { handleDOM };

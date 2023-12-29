@@ -17,23 +17,31 @@ import { allProjects } from './trackAllProjects.js';
 
 
 
-let test = createProject('TestProject');
+let test = createProject('Test-Project');// store names with dashes add space later
 
 test.addTodo('title1', 'desc', 'due', 2, 'check');
 test.addTodo('title2', 'desc', 'due', 6, 'check');
 test.addTodo('title3', 'desc', 'due', 0, 'check');
 
-let testtwo = createProject('AnotherProject');
+let testtwo = createProject('Another-Project');
 
 testtwo.addTodo('title4', 'desc', 'due', 5, 'check');
 testtwo.addTodo('title5', 'desc', 'due', 10, 'check');
 testtwo.addTodo('title6', 'desc', 'due', 3, 'check');
 
-handleDOM.allListView();
+
+
+
+handleDOM.defaultView();
+
+
+
 
 const downArrowImg = document.querySelector('.down-arrow > img');
 const settingsImg = document.querySelector('.settings > img');
+
 const title = document.querySelector('.title > h2');
+const titleDropDown = document.querySelector('.title > .drop-down');
 
 downArrowImg.addEventListener('click', (e) => {
     e.target.nextSibling.classList.toggle('visible');
@@ -45,6 +53,14 @@ settingsImg.addEventListener('click', (e) => {
 
 title.addEventListener('click', (e) => {
     e.target.nextSibling.classList.toggle('visible');
+});
+
+titleDropDown.addEventListener('click', (e) => {
+    handleDOM.projectView(e.target.className);
+    
+    if (e.target.className === 'All-List-View') {
+        handleDOM.allListView();
+    };
 });
 
 window.addEventListener('click', (e) => {

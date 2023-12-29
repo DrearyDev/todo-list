@@ -253,6 +253,9 @@ body {
     .header .project .title > h2 {
         font-size: 2rem;
     }
+    .header .project .title .drop-down > div {
+        font-size: 1.3rem;
+    }
 
     .header .project .actions .down-arrow > img,
     .header .project .actions .settings > img {
