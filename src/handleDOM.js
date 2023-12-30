@@ -26,48 +26,39 @@ const handleDOM = (() => {
         'high'
     ];
 
-    const addClass = (ele, addClass) => {
-        ele.classList.add(addClass);
-    };
-
     const addOptionsToMenu = (appendTo, arr) => {
         console.log(arr);
         for (let i in arr) {
             let tmp = document.createElement('div');
-            addClass(tmp, `${arr[i]}`);
-            changeInnerText(tmp, arr[i].replace(/-/g, ' '));
+            tmp.classList.add(`${arr[i]}`);
+            tmp.innerText = `${arr[i].replace(/-/g, ' ')}`;
             appendTo.appendChild(tmp);
         };
-
-    };
-
-    const changeInnerText = (ele, changeText) => {
-        ele.innerText = changeText;
     };
 
     const createIcon = (img, appendto) => {
         let tmp = new Image();
         tmp.src = img;
-        addClass(tmp, 'icon');
+        tmp.classList.add('icon');
         tmp.setAttribute('draggable', false);
         appendto.appendChild(tmp);
     };
 
     const updatePriorityLevel = (ele, priority) => {
         if (priority === 10) { priority-- };
-        addClass(ele, priorityClasses[priority]);
+        ele.classList.add(priorityClasses[priority]);
     };
 
     const createProjectDiv = () => {
         project = document.createElement('div');
-        addClass(project, 'project');
+        project.classList.add('project');
         header.appendChild(project);
         projectTitle = document.createElement('div');
-        addClass(projectTitle, 'title');
+        projectTitle.classList.add('title');
         h2 = document.createElement('h2');
         projectTitle.appendChild(h2);
         projectMenu = document.createElement('div');
-        addClass(projectMenu, 'drop-down');
+        projectMenu.classList.add('drop-down');
         projectMenuItems = allProjects.map(o => o.project);
         projectMenuItems.push('All-List-View');
         addOptionsToMenu(projectMenu, projectMenuItems);
@@ -77,18 +68,16 @@ const handleDOM = (() => {
 
     const createActionsDiv = () => {
         actions = document.createElement('div');
-        addClass(actions, 'actions');
+        actions.classList.add('actions');
         project.appendChild(actions);
-        createDownArrowMenu(actions);
-        createSettingsMenu(actions);
     };
 
     const createDownArrowMenu = (appendTo) => {
         downArrow = document.createElement('div');
         createIcon(downArrowPng, downArrow);
-        addClass(downArrow, 'down-arrow');
+        downArrow.classList.add('down-arrow');
         arrowMenu = document.createElement('div');
-        addClass(arrowMenu, 'drop-down');
+        arrowMenu.classList.add('drop-down');
         addOptionsToMenu(arrowMenu, arrowMenuItems);
         downArrow.appendChild(arrowMenu);
         appendTo.appendChild(downArrow);
@@ -97,31 +86,30 @@ const handleDOM = (() => {
     const createSettingsMenu = (appendTo) => {
         settings = document.createElement('div');
         createIcon(settingsPng, settings);
-        addClass(settings, 'settings');
+        settings.classList.add('settings');
         settingsMenu = document.createElement('div');
-        addClass(settingsMenu, 'drop-down');
+        settingsMenu.classList.add('drop-down');
         addOptionsToMenu(settingsMenu, settingsMenuItems);
         settings.appendChild(settingsMenu);
         appendTo.appendChild(settings);
     };
 
     const createHeader = () => {
-        // create header div
         header = document.createElement('div');
-        addClass(header, 'header');
+        header.classList.add('header');
         body.insertBefore(header, content);
 
-        // create project div ( div within header )
         createProjectDiv();
 
-        // create actions div ( div that contains menus )
         createActionsDiv();
+        createDownArrowMenu(actions);
+        createSettingsMenu(actions);
     };
 
     const createMainDiv = () => {
         // create main div ( div with all content )
         main = document.createElement('div');
-        addClass(main, 'main');
+        main.classList.add('main');
         content.appendChild(main);
     };
 
@@ -137,34 +125,14 @@ const handleDOM = (() => {
         main.appendChild(div);
     };
 
-    const clearMain = () => {
-        main.innerText = '';
-    };
-
-    const defaultView = () => {
-        createHeader();
-        changeInnerText(h2, 'All List View');
-
-        createMainDiv();
-        addClass(main, 'all-list-view');
-
-        // render all todos from all projects on screen
-        allProjects.filter(object => {
-            for (let key in object) {
-                if (key !== 'project') {
-                    renderTodo(object[key]);
-                };
-            };
-        });
-    };
-
     const allListView = () => {
-        content.innerText = '';
+        if (!header) { createHeader() }
+        else { content.innerText = '' };
 
-        changeInnerText(h2, 'All List View');
+        h2.innerText = 'All List View';
 
         createMainDiv();
-        addClass(main, 'all-list-view');
+        main.classList.add('all-list-view');
 
         // render all todos from all projects on screen
         allProjects.filter(object => {
@@ -177,7 +145,7 @@ const handleDOM = (() => {
     };
 
     const projectView = (projectName) => {
-        clearMain();
+        main.innerText = '';
 
         //filter allProjects for project that was clicked
         let result = allProjects.filter(object => {
@@ -199,7 +167,7 @@ const handleDOM = (() => {
     
 
 
-    return { allListView, projectView, defaultView };
+    return { allListView, projectView };
 })();
 
 export { handleDOM };

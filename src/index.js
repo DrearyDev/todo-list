@@ -32,7 +32,7 @@ testtwo.addTodo('title6', 'desc', 'due', 3, 'check');
 
 
 
-handleDOM.defaultView();
+handleDOM.allListView();
 
 
 
