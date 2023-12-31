@@ -114,7 +114,9 @@ const handleDOM = (() => {
     };
 
     const renderTodo = (todo) => {
+        // main todo element with title and due date
         let div = document.createElement('div');
+        console.log(todo);
         let divTitle = document.createElement('h2');
         divTitle.innerText = todo.title;
         let divDueDate = document.createElement('h2');
@@ -123,6 +125,28 @@ const handleDOM = (() => {
         div.appendChild(divDueDate);
         updatePriorityLevel(div, todo.priority);
         main.appendChild(div);
+
+        // expand element for when todo clicked
+        let expand = document.createElement('div');
+        expand.classList.add('expand')
+        updatePriorityLevel(expand, todo.priority);
+
+        // add description on expand element
+        let desc = document.createElement('textarea');
+        desc.todo = todo; //this assocciates the element with the todo object
+        desc.innerText = todo.desc;
+        expand.appendChild(desc);
+        div.appendChild(expand);
+    };
+
+    const updateTodos = () => {
+        let textarea = document.querySelectorAll('textarea');
+
+        textarea.forEach(area => {
+            area.addEventListener('input', (e) => {
+                e.target.todo.desc = e.target.value;
+            });
+        });
     };
 
     const allListView = () => {
@@ -142,6 +166,8 @@ const handleDOM = (() => {
                 };
             };
         });
+
+       updateTodos();
     };
 
     const projectView = (projectName) => {
@@ -161,6 +187,8 @@ const handleDOM = (() => {
                 };
             };
         });
+
+        updateTodos();
     };
 
 

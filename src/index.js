@@ -4,11 +4,10 @@ import { handleDOM } from './handleDOM.js';
 import { allProjects } from './trackAllProjects.js';
 
 // // create new project object to store all todos
-// let test = createProject('ProjectName');
+// let test = createProject('Project-Name');
 
 // // add todo to the project object using addTodo method and createTodo module
-// test.addTodo('nameOfTodo', createTodo('title', 'description', 'duedate', 'priority', 'checklist'));
-// test.addTodo('anotherTodo', createTodo('0', '0', '0', '0', '0'));
+// test.addTodo('title', 'description', 'duedate', 'priority', 'checklist');
 
 // // result is the project object with all todos stored as objects
 // console.log(test);
@@ -19,7 +18,7 @@ import { allProjects } from './trackAllProjects.js';
 
 let test = createProject('Test-Project');// store names with dashes add space later
 
-test.addTodo('title1', 'desc', 'due', 2, 'check');
+test.addTodo('title1', 'Write why youre doing this task or how to do it.. You can edit this text', 'due', 2, 'check');
 test.addTodo('title2', 'desc', 'due', 6, 'check');
 test.addTodo('title3', 'desc', 'due', 0, 'check');
 
@@ -43,6 +42,7 @@ const settingsImg = document.querySelector('.settings > img');
 const title = document.querySelector('.title > h2');
 const titleDropDown = document.querySelector('.title > .drop-down');
 
+
 downArrowImg.addEventListener('click', (e) => {
     e.target.nextSibling.classList.toggle('visible');
 });
@@ -56,11 +56,13 @@ title.addEventListener('click', (e) => {
 });
 
 titleDropDown.addEventListener('click', (e) => {
-    handleDOM.projectView(e.target.className);
     
     if (e.target.className === 'All-List-View') {
         handleDOM.allListView();
+    } else {
+        handleDOM.projectView(e.target.className);
     };
+
 });
 
 window.addEventListener('click', (e) => {
@@ -76,8 +78,6 @@ window.addEventListener('click', (e) => {
         title.nextSibling.classList.remove('visible');
     };
 });
-
-
 
 
 
