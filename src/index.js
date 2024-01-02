@@ -4,6 +4,7 @@ import { handleDOM } from './handleDOM.js';
 import { allProjects } from './trackAllProjects.js';
 
 // // create new project object to store all todos
+// // all spaces in name must be replaced with dashes
 // let test = createProject('Project-Name');
 
 // // add todo to the project object using addTodo method and createTodo module
@@ -29,18 +30,18 @@ testtwo.addTodo('title5', 'desc', 'due', 10, 'check');
 testtwo.addTodo('title6', 'desc', 'due', 3, 'check');
 
 
-
-
 handleDOM.allListView();
 
-
-
+const content = document.querySelector('.content');
 
 const downArrowImg = document.querySelector('.down-arrow > img');
 const settingsImg = document.querySelector('.settings > img');
 
 const title = document.querySelector('.title > h2');
 const titleDropDown = document.querySelector('.title > .drop-down');
+
+let textarea = [...document.querySelectorAll('textarea')];
+let expand = [...document.querySelectorAll('.main > div > .expand')];
 
 
 downArrowImg.addEventListener('click', (e) => {
@@ -52,17 +53,29 @@ settingsImg.addEventListener('click', (e) => {
 });
 
 title.addEventListener('click', (e) => {
-    e.target.nextSibling.classList.toggle('visible');
+    e.target.nextSibling.classList.toggle('visible'); 
 });
 
 titleDropDown.addEventListener('click', (e) => {
-    
     if (e.target.className === 'All-List-View') {
         handleDOM.allListView();
     } else {
         handleDOM.projectView(e.target.className);
     };
+});
 
+textarea.forEach(area => {
+    area.addEventListener('input', (e) => {
+        e.target.todo.desc = e.target.value;
+    });
+});
+
+expand.forEach(expanded => {
+    expanded.addEventListener('click', (e) => { e.stopPropagation() });
+    
+    expanded.parentElement.addEventListener('click', () => {
+        expanded.classList.toggle('visible');
+    });
 });
 
 window.addEventListener('click', (e) => {
@@ -77,7 +90,39 @@ window.addEventListener('click', (e) => {
     if (e.target !== title) {
         title.nextSibling.classList.remove('visible');
     };
+
+    expand.forEach(expanded => {
+        if (e.target !== expanded.parentElement) {
+            expanded.classList.remove('visible');
+        };
+    });
 });
+
+const observer = new MutationObserver(() => {
+    textarea = [...document.querySelectorAll('textarea')];
+    expand = [...document.querySelectorAll('.main > div > .expand')];
+
+    textarea.forEach(area => {
+        area.addEventListener('input', (e) => {
+            e.target.todo.desc = e.target.value;
+        });
+    });
+
+    expand.forEach(expanded => {
+        expanded.addEventListener('click', (e) => { e.stopPropagation() });
+
+        expanded.parentElement.addEventListener('click', () => {
+            expanded.classList.toggle('visible');
+        });
+    });
+});
+
+const config = {
+    subtree: true,
+    childList: true,
+};
+
+observer.observe(content, config)
 
 
 

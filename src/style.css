@@ -218,6 +218,7 @@ body {
 .main.all-list-view > div {
     width: 100%;
     padding: 10px;
+    cursor: pointer;
 
     display: flex;
     align-items: center;
@@ -233,8 +234,13 @@ body {
     width: 100%;
     min-height: 500px;
     margin-top: 10px;
+    
+    display: none;
 
     border: 1px solid black;
+}
+.main.all-list-view div > .expand.visible {
+    display: block;
 }
 .main.all-list-view div .expand > textarea {
     width: 100%;

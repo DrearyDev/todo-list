@@ -27,7 +27,6 @@ const handleDOM = (() => {
     ];
 
     const addOptionsToMenu = (appendTo, arr) => {
-        console.log(arr);
         for (let i in arr) {
             let tmp = document.createElement('div');
             tmp.classList.add(`${arr[i]}`);
@@ -116,7 +115,6 @@ const handleDOM = (() => {
     const renderTodo = (todo) => {
         // main todo element with title and due date
         let div = document.createElement('div');
-        console.log(todo);
         let divTitle = document.createElement('h2');
         divTitle.innerText = todo.title;
         let divDueDate = document.createElement('h2');
@@ -139,15 +137,6 @@ const handleDOM = (() => {
         div.appendChild(expand);
     };
 
-    const updateTodos = () => {
-        let textarea = document.querySelectorAll('textarea');
-
-        textarea.forEach(area => {
-            area.addEventListener('input', (e) => {
-                e.target.todo.desc = e.target.value;
-            });
-        });
-    };
 
     const allListView = () => {
         if (!header) { createHeader() }
@@ -166,12 +155,12 @@ const handleDOM = (() => {
                 };
             };
         });
-
-       updateTodos();
     };
 
     const projectView = (projectName) => {
         main.innerText = '';
+
+        h2.innerText = projectName.replace(/-/g, ' ');
 
         //filter allProjects for project that was clicked
         let result = allProjects.filter(object => {
@@ -182,13 +171,10 @@ const handleDOM = (() => {
         result.filter(object => {
             for (let key in object) {
                 if (key !== 'project') {
-                    console.log(object[key]);
                     renderTodo(object[key]);
                 };
             };
         });
-
-        updateTodos();
     };
 
 
