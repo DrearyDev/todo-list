@@ -164,6 +164,22 @@ const handleDOM = (() => {
             expand.appendChild(checkList);
         });
 
+        // add delete todo button
+        let btn = document.createElement('button');
+        btn.innerText = 'Delete Todo';
+        btn.todo = todo;
+        btn.delTodo = () => {
+            //search allProjects array for todo and remove it
+            allProjects.filter(project => {
+                for (let key in project) {
+                    if (key === btn.todo.title) {
+                        delete project[key];
+                    };
+                };
+            });
+        };
+        expand.appendChild(btn);
+
         div.appendChild(expand);
     };
 

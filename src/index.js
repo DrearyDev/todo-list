@@ -23,7 +23,7 @@ let test = createProject('Test-Project');// store names with dashes add space la
 let exampleChecklist = [
     {Step_One: true},
     {Step_Two: false},
-    {Step_Three: false},
+    {Testing_Longer_name_to_See_What_Happens: false},
     {Step_Four: true},
     {Step_Five: false},
     {Step_Six: false},
@@ -57,6 +57,7 @@ const titleDropDown = document.querySelector('.title > .drop-down');
 let textarea = [...document.querySelectorAll('textarea')];
 let expand = [...document.querySelectorAll('.main > div > .expand')];
 let items = [...document.querySelectorAll('.checklist > .item')];
+let delBtns = [...document.querySelectorAll('.expand > button')];
 
 
 downArrowImg.addEventListener('click', (e) => {
@@ -85,17 +86,22 @@ textarea.forEach(area => {
     });
 });
 
+function stopPropagation(e) { e.stopPropagation() };
+
+function toggleVisible(e) {
+    //if e.target.children[2] is undefined then i mustve clicked an h2 child of the todo element
+    if (e.target.children[2]) { e.target.children[2].classList.toggle('visible') }
+    else { e.target.parentElement.children[2].classList.toggle('visible') };
+};
+
 expand.forEach(expanded => {
-    expanded.addEventListener('click', (e) => { e.stopPropagation() });
+    expanded.addEventListener('click', stopPropagation);
     
-    expanded.parentElement.addEventListener('click', () => {
-        expanded.classList.toggle('visible');
-    });
+    expanded.parentElement.addEventListener('click', toggleVisible);
 });
 
 items.forEach(item => {
     item.addEventListener('click', (e) => {
-        console.log(e.target);
         if (e.target.type === 'checkbox') {
             for (let key in item.todo) {
                 if (item.todo[key]) {
@@ -106,6 +112,16 @@ items.forEach(item => {
             };
         };
     });
+});
+
+function deleteTodo(e) {
+    e.target.delTodo();
+    let main = document.querySelector('.main');
+    main.removeChild(e.target.parentElement.parentElement);
+};
+
+delBtns.forEach(btn => {
+    btn.addEventListener('click', deleteTodo);
 });
 
 window.addEventListener('click', (e) => {
@@ -122,7 +138,10 @@ window.addEventListener('click', (e) => {
     };
 
     expand.forEach(expanded => {
-        if (e.target !== expanded.parentElement) {
+        //get the h2 children of each todo so i can expand todo while clicking the h2 aswell
+        let h2 = [...expanded.parentElement.children].splice(0, 2);
+
+        if (e.target !== expanded.parentElement && e.target !== h2[0] && e.target !== h2[1]) {
             expanded.classList.remove('visible');
         };
     });
@@ -132,6 +151,7 @@ const observer = new MutationObserver(() => {
     textarea = [...document.querySelectorAll('textarea')];
     expand = [...document.querySelectorAll('.main > div > .expand')];
     items = [...document.querySelectorAll('.checklist > .item')];
+    delBtns = [...document.querySelectorAll('.expand > button')];
     
     textarea.forEach(area => {
         area.addEventListener('input', (e) => {
@@ -140,16 +160,15 @@ const observer = new MutationObserver(() => {
     });
 
     expand.forEach(expanded => {
-        expanded.addEventListener('click', (e) => { e.stopPropagation() });
-
-        expanded.parentElement.addEventListener('click', () => {
-            expanded.classList.toggle('visible');
-        });
+        expanded.removeEventListener('click', stopPropagation);
+        expanded.addEventListener('click', stopPropagation);
+        
+        expanded.parentElement.removeEventListener('click', toggleVisible);
+        expanded.parentElement.addEventListener('click', toggleVisible);
     });
 
     items.forEach(item => {
         item.addEventListener('click', (e) => {
-            console.log(e.target);
             if (e.target.type === 'checkbox') {
                 for (let key in item.todo) {
                     if (item.todo[key]) {
@@ -160,6 +179,11 @@ const observer = new MutationObserver(() => {
                 };
             };
         });
+    });
+
+    delBtns.forEach(btn => {
+        btn.removeEventListener('click', deleteTodo);
+        btn.addEventListener('click', deleteTodo);
     });
 });
 
