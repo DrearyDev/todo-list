@@ -252,6 +252,22 @@ body {
     border: none;
     resize: none;
 }
+.main.all-list-view div .expand > .checklist {
+    font-size: 1rem;
+    padding: 10px;
+    white-space: nowrap;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.main.all-list-view div .expand .checklist > .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
 
 
 

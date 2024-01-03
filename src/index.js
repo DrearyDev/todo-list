@@ -19,15 +19,29 @@ import { allProjects } from './trackAllProjects.js';
 
 let test = createProject('Test-Project');// store names with dashes add space later
 
-test.addTodo('title1', 'Write why youre doing this task or how to do it.. You can edit this text', 'due', 2, 'check');
-test.addTodo('title2', 'desc', 'due', 6, 'check');
-test.addTodo('title3', 'desc', 'due', 0, 'check');
+// store checklist keys with underscores instead of spaces and add them later
+let exampleChecklist = [
+    {Step_One: true},
+    {Step_Two: false},
+    {Step_Three: false},
+    {Step_Four: true},
+    {Step_Five: false},
+    {Step_Six: false},
+    {Step_Seven: false},
+    {Step_Eight: false},
+    {Step_Nine: false},
+    {Step_Ten: false}
+];
+
+test.addTodo('title1', 'example text', 'due', 2, exampleChecklist);
+test.addTodo('title2', 'desc', 'due', 6, [{abcd: false}]);
+test.addTodo('title3', 'desc', 'due', 0, [{efgh: false}]);
 
 let testtwo = createProject('Another-Project');
 
-testtwo.addTodo('title4', 'desc', 'due', 5, 'check');
-testtwo.addTodo('title5', 'desc', 'due', 10, 'check');
-testtwo.addTodo('title6', 'desc', 'due', 3, 'check');
+testtwo.addTodo('title4', 'desc', 'due', 5, [{ijkl: false}]);
+testtwo.addTodo('title5', 'desc', 'due', 10, [{mnop: false}]);
+testtwo.addTodo('title6', 'desc', 'due', 3, [{qrst: false}]);
 
 
 handleDOM.allListView();
@@ -42,6 +56,7 @@ const titleDropDown = document.querySelector('.title > .drop-down');
 
 let textarea = [...document.querySelectorAll('textarea')];
 let expand = [...document.querySelectorAll('.main > div > .expand')];
+let items = [...document.querySelectorAll('.checklist > .item')];
 
 
 downArrowImg.addEventListener('click', (e) => {
@@ -78,6 +93,21 @@ expand.forEach(expanded => {
     });
 });
 
+items.forEach(item => {
+    item.addEventListener('click', (e) => {
+        console.log(e.target);
+        if (e.target.type === 'checkbox') {
+            for (let key in item.todo) {
+                if (item.todo[key]) {
+                    item.todo[key] = false;
+                } else {
+                    item.todo[key] = true;
+                };
+            };
+        };
+    });
+});
+
 window.addEventListener('click', (e) => {
     if (e.target !== downArrowImg) { 
         downArrowImg.nextSibling.classList.remove('visible');
@@ -101,7 +131,8 @@ window.addEventListener('click', (e) => {
 const observer = new MutationObserver(() => {
     textarea = [...document.querySelectorAll('textarea')];
     expand = [...document.querySelectorAll('.main > div > .expand')];
-
+    items = [...document.querySelectorAll('.checklist > .item')];
+    
     textarea.forEach(area => {
         area.addEventListener('input', (e) => {
             e.target.todo.desc = e.target.value;
@@ -113,6 +144,21 @@ const observer = new MutationObserver(() => {
 
         expanded.parentElement.addEventListener('click', () => {
             expanded.classList.toggle('visible');
+        });
+    });
+
+    items.forEach(item => {
+        item.addEventListener('click', (e) => {
+            console.log(e.target);
+            if (e.target.type === 'checkbox') {
+                for (let key in item.todo) {
+                    if (item.todo[key]) {
+                        item.todo[key] = false;
+                    } else {
+                        item.todo[key] = true;
+                    };
+                };
+            };
         });
     });
 });

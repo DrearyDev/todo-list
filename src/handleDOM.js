@@ -134,6 +134,36 @@ const handleDOM = (() => {
         desc.todo = todo; //this assocciates the element with the todo object
         desc.innerText = todo.desc;
         expand.appendChild(desc);
+
+        // add checklist on expand element
+        let checkList = document.createElement('div');
+        checkList.classList.add('checklist');
+
+        todo.checklist.forEach(object => {//array of objects
+            for (let key in object) {
+
+                let check = document.createElement('input');
+                check.type = 'checkbox';
+                check.id = key;
+                check.name = key;
+                check.value = key;
+                if (object[key]) { check.setAttribute('checked', 'true') };
+
+                let label = document.createElement('label');
+                label.setAttribute('for', key);
+                label.innerText = key.replace(/_/g, ' ');
+
+                let item = document.createElement('div');
+                item.classList.add('item');
+                item.todo = object;
+                item.appendChild(check);
+                item.appendChild(label);
+
+                checkList.appendChild(item);
+            };
+            expand.appendChild(checkList);
+        });
+
         div.appendChild(expand);
     };
 
