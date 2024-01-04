@@ -169,6 +169,7 @@ body {
 .header .project .actions .down-arrow .drop-down.visible,
 .header .project .actions .settings .drop-down.visible {
     display: inline-block;
+    white-space: nowrap;
 }
 .header .project .actions .down-arrow .drop-down > div,
 .header .project .actions .settings .drop-down > div {
@@ -281,6 +282,53 @@ body {
     position: absolute;
     bottom: 0px;
     right: 0px;
+}
+
+
+
+/* FORM TO ADD TODO */
+
+.form-modal {
+    width: 100vw;
+    height: 100vh;
+
+    display: none;
+
+    background-color: rgba(0,0,0,0.3);
+
+    position: absolute;
+}
+.form-modal.visible {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form-modal form {
+    height: 500px;
+    width: 500px;
+    padding: 5px;
+
+    position: relative;
+
+    border: 5px solid var(--BG-COLOR);
+    color: var(--BG-COLOR);
+    background-color: var(--FG-COLOR);
+}
+.form-modal form > img {
+    height: 35px;
+    width: 35px;
+    user-select: none;
+    cursor: pointer;
+
+    position: absolute;
+    right: 5px;
+
+    /* --BG-COLOR */
+    filter: invert(18%) sepia(1%) saturate(4281%) hue-rotate(45deg) brightness(104%) contrast(93%);
+}
+.form-modal form > img:hover {
+    /* --HOVER-COLOR */
+    filter: invert(31%) sepia(0%) saturate(2188%) hue-rotate(134deg) brightness(95%) contrast(82%);
 }
 
 

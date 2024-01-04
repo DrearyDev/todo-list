@@ -1,6 +1,7 @@
 import downArrowPng from './down-arrow.svg';
 import settingsPng from './settings-icon.svg';
 import { allProjects } from './trackAllProjects';
+import CancelSvg from './cancel.svg';
 
 const handleDOM = (() => {
 
@@ -9,7 +10,7 @@ const handleDOM = (() => {
     let header, project, projectTitle, actions, downArrow, arrowMenu, settings, settingsMenu;
     let h2, projectMenu;
     let main;
-    let arrowMenuItems = ['arrow', 'menu', 'options'];
+    let arrowMenuItems = ['Add-Todo'];
     let settingsMenuItems = ['settings', 'menu', 'options'];
     let projectMenuItems = [];
 
@@ -183,6 +184,17 @@ const handleDOM = (() => {
         div.appendChild(expand);
     };
 
+    const addTodoForm = () => {
+        const modal = document.createElement('modal');
+        modal.classList.add('form-modal');
+
+        const form = document.createElement('form');
+        createIcon(CancelSvg, form);
+
+        modal.appendChild(form);
+
+        body.appendChild(modal);
+    };
 
     const allListView = () => {
         if (!header) { createHeader() }
@@ -224,10 +236,13 @@ const handleDOM = (() => {
     };
 
 
+
+
+
     
 
 
-    return { allListView, projectView };
+    return { allListView, projectView, addTodoForm };
 })();
 
 export { handleDOM };

@@ -43,7 +43,7 @@ testtwo.addTodo('title4', 'desc', 'due', 5, [{ijkl: false}]);
 testtwo.addTodo('title5', 'desc', 'due', 10, [{mnop: false}]);
 testtwo.addTodo('title6', 'desc', 'due', 3, [{qrst: false}]);
 
-
+handleDOM.addTodoForm();
 handleDOM.allListView();
 
 const content = document.querySelector('.content');
@@ -53,11 +53,15 @@ const settingsImg = document.querySelector('.settings > img');
 
 const title = document.querySelector('.title > h2');
 const titleDropDown = document.querySelector('.title > .drop-down');
+const modal = document.querySelector('.form-modal');
+const exitBtn = document.querySelector('.form-modal form > img');
 
 let textarea = [...document.querySelectorAll('textarea')];
 let expand = [...document.querySelectorAll('.main > div > .expand')];
 let items = [...document.querySelectorAll('.checklist > .item')];
 let delBtns = [...document.querySelectorAll('.expand > button')];
+let arrowOptions = [...document.querySelectorAll('.down-arrow .drop-down > div')];
+let settingsOptions = [...document.querySelectorAll('.settings .drop-down > div')];
 
 
 downArrowImg.addEventListener('click', (e) => {
@@ -87,16 +91,13 @@ textarea.forEach(area => {
 });
 
 function stopPropagation(e) { e.stopPropagation() };
-
 function toggleVisible(e) {
     //if e.target.children[2] is undefined then i mustve clicked an h2 child of the todo element
     if (e.target.children[2]) { e.target.children[2].classList.toggle('visible') }
     else { e.target.parentElement.children[2].classList.toggle('visible') };
 };
-
 expand.forEach(expanded => {
     expanded.addEventListener('click', stopPropagation);
-    
     expanded.parentElement.addEventListener('click', toggleVisible);
 });
 
@@ -119,9 +120,17 @@ function deleteTodo(e) {
     let main = document.querySelector('.main');
     main.removeChild(e.target.parentElement.parentElement);
 };
+delBtns.forEach(btn => { btn.addEventListener('click', deleteTodo) });
 
-delBtns.forEach(btn => {
-    btn.addEventListener('click', deleteTodo);
+function arrowClick(e) {
+    if (e.target.classList.contains('Add-Todo')) {
+        modal.classList.add('visible');
+    };
+};
+arrowOptions.forEach(option => { option.addEventListener('click', arrowClick) });
+
+exitBtn.addEventListener('click', () => {
+    modal.classList.remove('visible');
 });
 
 window.addEventListener('click', (e) => {
