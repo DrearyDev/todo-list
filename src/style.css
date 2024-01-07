@@ -259,7 +259,6 @@ body {
     font-size: 1rem;
     padding: 10px;
     margin: 20px 0px 50px 0px;
-    white-space: nowrap;
 
     display: flex;
     align-items: center;
@@ -288,47 +287,109 @@ body {
 
 /* FORM TO ADD TODO */
 
-.form-modal {
-    width: 100vw;
-    height: 100vh;
+dialog {
+    max-height: 650px;
+    width: fit-content;
+    padding: 25px;
 
     display: none;
-
-    background-color: rgba(0,0,0,0.3);
-
-    position: absolute;
-}
-.form-modal.visible {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-.form-modal form {
-    height: 500px;
-    width: 500px;
-    padding: 5px;
-
-    position: relative;
+    gap: 50px;
 
     border: 5px solid var(--BG-COLOR);
     color: var(--BG-COLOR);
     background-color: var(--FG-COLOR);
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-.form-modal form > img {
-    height: 35px;
-    width: 35px;
+dialog::backdrop {
+    background-color: rgba(0,0,0,0.3);
+}
+dialog > img {
+    height: 25px;
+    width: 25px;
     user-select: none;
     cursor: pointer;
 
     position: absolute;
-    right: 5px;
+    top: 15px;
+    right: 15px;
 
     /* --BG-COLOR */
     filter: invert(18%) sepia(1%) saturate(4281%) hue-rotate(45deg) brightness(104%) contrast(93%);
 }
-.form-modal form > img:hover {
+dialog > img:hover {
     /* --HOVER-COLOR */
     filter: invert(31%) sepia(0%) saturate(2188%) hue-rotate(134deg) brightness(95%) contrast(82%);
+}
+dialog > h2 {
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+dialog form {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+dialog form > div {
+    width: 100%;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+dialog form > button {
+    width: 100%;
+}
+dialog form div > select,
+dialog form div > input {
+    width: 200px;
+    padding: 5px;
+}
+dialog form div > label,
+dialog form div > button {
+    word-wrap: none;
+    white-space: nowrap;
+}
+dialog form button {
+    font-weight: bolder;
+    padding: 10px;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+
+    color: var(--FG-COLOR);
+    background-color: var(--BG-COLOR);
+}
+dialog button:hover {
+    background-color: var(--HOVER-COLOR);
+}
+dialog .created-checks {
+    font-size: 1rem;
+    width: 100%;
+    padding: 5px;
+    background-color: #fff;
+
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 50px;
+}
+dialog .created-checks .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+dialog .created-checks input {
+    width: min-content;
 }
 
 
@@ -358,7 +419,6 @@ body {
     .header .project .title .drop-down > div {
         font-size: 1.3rem;
     }
-
     .header .project .actions .down-arrow > img,
     .header .project .actions .settings > img {
         height: 30px;
@@ -367,5 +427,24 @@ body {
 
     .main.all-list-view div > h2 {
         font-size: 1.5rem;
+    }
+
+    dialog {
+        min-width: 90%;
+        min-height: 90%;
+        align-items: flex-start;
+    }
+    dialog form > div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 5px;
+    }
+    dialog div > label {
+        font-size: 1rem;
+    }
+    .checklist-create label {
+        width: 100%;
     }
 }

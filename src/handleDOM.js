@@ -59,7 +59,7 @@ const handleDOM = (() => {
         projectTitle.appendChild(h2);
         projectMenu = document.createElement('div');
         projectMenu.classList.add('drop-down');
-        projectMenuItems = allProjects.map(o => o.project);
+        projectMenuItems = allProjects.map(o => o.name);
         projectMenuItems.push('All-List-View');
         addOptionsToMenu(projectMenu, projectMenuItems);
         projectTitle.appendChild(projectMenu);
@@ -185,15 +185,103 @@ const handleDOM = (() => {
     };
 
     const addTodoForm = () => {
-        const modal = document.createElement('modal');
-        modal.classList.add('form-modal');
+        const dialog = document.querySelector('dialog');
 
         const form = document.createElement('form');
-        createIcon(CancelSvg, form);
+        form.method = 'dialog';
+        createIcon(CancelSvg, dialog);
 
-        modal.appendChild(form);
+        const h2 = document.createElement('h2');
+        h2.innerText = 'Add Todo';
+        dialog.appendChild(h2);
 
-        body.appendChild(modal);
+        const projectSelectDiv = document.createElement('div');
+        projectSelectDiv.classList.add('project-select');
+        const projectLabel = document.createElement('label');
+        projectLabel.innerText = 'Project:'
+        const projectSelect = document.createElement('select');
+        projectSelect.required = true;
+        for (let key in allProjects) {
+            let option = document.createElement('option');
+            option.innerText = allProjects[key].name.replace(/-/g, ' ');
+            projectSelect.appendChild(option);
+        };
+        projectSelectDiv.appendChild(projectLabel);
+        projectSelectDiv.appendChild(projectSelect);
+        form.appendChild(projectSelectDiv);
+
+        const titleInputDiv = document.createElement('div');
+        titleInputDiv.classList.add('title-input');
+        const titleLabel = document.createElement('label');
+        titleLabel.innerText = 'Title:';
+        const titleInput = document.createElement('input');
+        titleInput.required = true;
+        titleInputDiv.appendChild(titleLabel);
+        titleInputDiv.appendChild(titleInput);
+        form.appendChild(titleInputDiv);
+
+        const descInputDiv = document.createElement('div');
+        descInputDiv.classList.add('desc-input');
+        const descLabel = document.createElement('label');
+        descLabel.innerText = 'Description:';
+        const descInput = document.createElement('input');
+        descInput.required = true;
+        descInputDiv.appendChild(descLabel);
+        descInputDiv.appendChild(descInput);
+        form.appendChild(descInputDiv);
+
+        const dateInputDiv = document.createElement('div');
+        dateInputDiv.classList.add('date-input');
+        const dateLabel = document.createElement('label');
+        dateLabel.innerText = 'Due Date:';
+        const dateInput = document.createElement('input');
+        dateInput.required = true;
+        dateInput.type = 'date';
+        dateInputDiv.appendChild(dateLabel);
+        dateInputDiv.appendChild(dateInput);
+        form.appendChild(dateInputDiv);
+
+        const priorityInputDiv = document.createElement('div');
+        priorityInputDiv.classList.add('priority-input');
+        const priorityLabel = document.createElement('label');
+        priorityLabel.innerText = 'Priority Level:';
+        const priorityInput = document.createElement('input');
+        priorityInput.required = true;
+        priorityInput.type = 'number';
+        priorityInput.min = 0
+        priorityInput.max = 10
+        priorityInputDiv.appendChild(priorityLabel);
+        priorityInputDiv.appendChild(priorityInput);
+        form.appendChild(priorityInputDiv);
+
+        const checklistCreateDiv = document.createElement('div');
+        checklistCreateDiv.classList.add('checklist-create');
+        const checklistCreateLabel = document.createElement('label');
+        checklistCreateLabel.innerText = 'Create Checklist:';
+        checklistCreateLabel.setAttribute('for', 'checkInput');
+        const checklistCreateInput = document.createElement('input');
+        checklistCreateInput.id = 'checkInput';
+        checklistCreateInput.maxLength = 30;
+        const checklistCreateBtn = document.createElement('button');
+        checklistCreateBtn.type = 'button';
+        checklistCreateBtn.innerText = 'New Check';
+        checklistCreateDiv.appendChild(checklistCreateLabel);
+        checklistCreateDiv.appendChild(checklistCreateInput);
+        checklistCreateDiv.appendChild(checklistCreateBtn);
+        form.appendChild(checklistCreateDiv);
+        const checklistCreated = document.createElement('div');
+        checklistCreated.classList.add('created-checks');
+        form.appendChild(checklistCreated);
+
+        const submitBtn = document.createElement('button');
+        submitBtn.classList.add('submit');
+        submitBtn.innerText = 'Submit';
+        form.appendChild(submitBtn);
+
+
+
+        dialog.appendChild(form);
+        body.appendChild(dialog);
     };
 
     const allListView = () => {
@@ -208,11 +296,15 @@ const handleDOM = (() => {
         // render all todos from all projects on screen
         allProjects.filter(object => {
             for (let key in object) {
-                if (key !== 'project') {
+                if (key !== 'name' && key !== 'addTodo') {
                     renderTodo(object[key]);
                 };
             };
         });
+
+        if (document.body.querySelector('dialog') === null) {
+            document.body.appendChild(document.createElement('dialog'));
+        };
     };
 
     const projectView = (projectName) => {
@@ -222,13 +314,13 @@ const handleDOM = (() => {
 
         //filter allProjects for project that was clicked
         let result = allProjects.filter(object => {
-            return object.project === projectName;
+            return object.name === projectName;
         });
 
         //render all todos from the selected project
         result.filter(object => {
             for (let key in object) {
-                if (key !== 'project') {
+                if (key !== 'name' && key !== 'addTodo') {
                     renderTodo(object[key]);
                 };
             };

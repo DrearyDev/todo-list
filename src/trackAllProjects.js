@@ -2,7 +2,7 @@
 let allProjects = [];
 
 function trackAllProjects(project) {
-    allProjects.push({ project });
+    allProjects.push( project );
 };
 
 function addTodoToAllProjects(projectName, todoName, todoObject) {
