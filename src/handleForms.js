@@ -68,11 +68,13 @@ function newCheck(e) {
 };
 
 function removeDialog() {
-    let dialog = document.querySelector('dialog');
-    dialog.close();
-    dialog.style.display = 'none';
-    dialog.innerHTML = '';
-    newCheckBtn.removeEventListener('click', newCheck);
+    if (newCheckBtn !== null) {
+        let dialog = document.querySelector('dialog');
+        dialog.close();
+        dialog.style.display = 'none';
+        dialog.innerHTML = '';
+        newCheckBtn.removeEventListener('click', newCheck);
+    };
 };
 
 function arrowClick(e) {
