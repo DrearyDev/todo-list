@@ -188,6 +188,7 @@ const handleDOM = (() => {
         const dialog = document.querySelector('dialog');
 
         const form = document.createElement('form');
+        form.classList.add('Add-Todo');
         form.method = 'dialog';
         createIcon(CancelSvg, dialog);
 

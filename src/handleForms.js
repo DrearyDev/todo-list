@@ -5,11 +5,9 @@ let newCheckBtn = document.querySelector('.checklist-create button');
 
 function submitForm(e) {
     let form = e.target.parentElement;
-    let createdChecks = document.querySelectorAll('form > .created-checks .item');
-    let h2 = document.querySelector('dialog > h2');
 
-
-    if (h2.innerText === 'Add Todo') {
+    if (form.classList.contains('Add-Todo')) {
+        let createdChecks = document.querySelectorAll('form > .created-checks .item');
         let select = form[0].value;
         let title = form[1].value;
         let desc = form[2].value;
@@ -68,21 +66,22 @@ function newCheck(e) {
 };
 
 function removeDialog() {
-    if (newCheckBtn !== null) {
-        let dialog = document.querySelector('dialog');
-        dialog.close();
-        dialog.style.display = 'none';
-        dialog.innerHTML = '';
-        newCheckBtn.removeEventListener('click', newCheck);
-    };
+    let dialog = document.querySelector('dialog');
+    dialog.close();
+    dialog.style.display = 'none';
+    dialog.innerHTML = '';
+};
+
+function showDialog() {
+    let dialog = document.querySelector('dialog');
+    dialog.showModal();
+    dialog.style.display = 'flex';
 };
 
 function arrowClick(e) {
     if (e.target.classList.contains('Add-Todo')) {
-        let dialog = document.querySelector('dialog');
-        dialog.style.display = 'flex';
         handleDOM.addTodoForm();
-        dialog.showModal();
+        showDialog();
 
         newCheckBtn = document.querySelector('.checklist-create button');
         newCheckBtn.addEventListener('click', newCheck);
