@@ -95,6 +95,7 @@ body {
     position: absolute;
     float: left;
     left: 0;
+    white-space: nowrap;
 
     color: var(--BG-COLOR);
     border: 5px solid var(--BG-COLOR);

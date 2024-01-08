@@ -10,9 +10,10 @@ const handleDOM = (() => {
     let header, project, projectTitle, actions, downArrow, arrowMenu, settings, settingsMenu;
     let h2, projectMenu;
     let main;
-    let arrowMenuItems = ['Add-Todo'];
+    let arrowMenuItems = ['Add-Project', 'Add-Todo'];
     let settingsMenuItems = ['settings', 'menu', 'options'];
-    let projectMenuItems = [];
+    let projectMenuItems = allProjects.map(o => o.name);
+
 
     let priorityClasses = [
         'low',
@@ -59,7 +60,6 @@ const handleDOM = (() => {
         projectTitle.appendChild(h2);
         projectMenu = document.createElement('div');
         projectMenu.classList.add('drop-down');
-        projectMenuItems = allProjects.map(o => o.name);
         projectMenuItems.push('All-List-View');
         addOptionsToMenu(projectMenu, projectMenuItems);
         projectTitle.appendChild(projectMenu);
@@ -182,6 +182,35 @@ const handleDOM = (() => {
         expand.appendChild(btn);
 
         div.appendChild(expand);
+    };
+
+    const addProjectForm = () => {
+        const dialog = document.querySelector('dialog');
+
+        const form = document.createElement('form');
+        form.classList.add('Add-Project');
+        form.method = 'dialog';
+        createIcon(CancelSvg, dialog);
+
+        const h2 = document.createElement('h2');
+        h2.innerText = 'Add Project';
+        dialog.appendChild(h2);
+
+        const projectNameDiv = document.createElement('div');
+        const projectLabel = document.createElement('label');
+        projectLabel.innerText = 'Name of Project:';
+        const projectInput = document.createElement('input');
+        projectInput.required = true;
+        projectNameDiv.appendChild(projectLabel);
+        projectNameDiv.appendChild(projectInput);
+        form.appendChild(projectNameDiv);
+
+        const submitBtn = document.createElement('button');
+        submitBtn.classList.add('submit');
+        submitBtn.innerText = 'Submit';
+        form.appendChild(submitBtn);
+
+        dialog.appendChild(form);
     };
 
     const addTodoForm = () => {
@@ -329,13 +358,24 @@ const handleDOM = (() => {
     };
 
 
+    const observer = new MutationObserver(() => {
+        projectMenu.innerHTML = '';
+        projectMenuItems = allProjects.map(o => o.name);
+        projectMenuItems.push('All-List-View');
+        addOptionsToMenu(projectMenu, projectMenuItems);
+    });
 
+    const config = {
+        subtree: true,
+        childList: true,
+    };
 
+    observer.observe(document.querySelector('.content'), config)
 
     
 
 
-    return { allListView, projectView, addTodoForm };
+    return { allListView, projectView, addTodoForm, addProjectForm };
 })();
 
 export { handleDOM };

@@ -1,5 +1,6 @@
+import { createProject } from "./createProject";
 import { handleDOM } from "./handleDOM";
-import { allProjects } from "./trackAllProjects";
+import { allProjects, trackAllProjects } from "./trackAllProjects";
 
 let newCheckBtn = document.querySelector('.checklist-create button');
 
@@ -15,8 +16,7 @@ function submitForm(e) {
         let priority = form[4].value;
         let checklist = [];
 
-        console.log(title, desc, due, priority);
-        // if all required fields arent empty
+         // if all required fields arent empty
         if (title !== '' && desc !== '' && due !== '' && priority !== '') {
             removeDialog();
 
@@ -31,8 +31,18 @@ function submitForm(e) {
                     object.addTodo(title, desc, due, priority, checklist);
                 };
             });
+
+            handleDOM.projectView(select.replace(/ /g, '-'));
         };
-   };
+    } else if (form.classList.contains('Add-Project')){
+        let title = form[0].value;
+
+        if (title !== '') {
+            removeDialog();
+            trackAllProjects(createProject(title));
+            handleDOM.projectView(title);
+        };
+    };
 };
 
 function newCheck(e) {
@@ -82,18 +92,18 @@ function arrowClick(e) {
     if (e.target.classList.contains('Add-Todo')) {
         handleDOM.addTodoForm();
         showDialog();
-
         newCheckBtn = document.querySelector('.checklist-create button');
         newCheckBtn.addEventListener('click', newCheck);
-
-        let submitBtn = document.querySelector('form .submit');
-        submitBtn.addEventListener('click', submitForm);
     } else {
-        // if add project is clicked
+        handleDOM.addProjectForm();
+        showDialog();
     };
 
     let exitBtn = document.querySelector('dialog > img');
     exitBtn.addEventListener('click', removeDialog);
+
+    let submitBtn = document.querySelector('form .submit');
+    submitBtn.addEventListener('click', submitForm);
 };
 
 export { arrowClick, removeDialog };
