@@ -4,6 +4,8 @@ import { handleDOM } from './handleDOM.js';
 import { trackAllProjects } from './trackAllProjects.js';
 import { allProjects } from './trackAllProjects.js';
 import * as handleForms from './handleForms.js';
+import { updateStorage } from './handleStorage.js';
+import { retrieveFromStorage } from './handleStorage.js';
 
 // // create new project object to store all todos
 // // all spaces in name must be replaced with dashes
@@ -22,33 +24,35 @@ import * as handleForms from './handleForms.js';
 
 
 
-let test = createProject('Test-Project');// store names with dashes add space later
-trackAllProjects(test);
+// let test = createProject('Test-Project');// store names with dashes add space later
+// trackAllProjects(test);
 
-// store checklist keys with underscores instead of spaces and add them later
-let exampleChecklist = [
-    {Step_One: true},
-    {Step_Two: false},
-    {Testing_Longer_name_to_See_What_Happens: false},
-    {Step_Four: true},
-    {Step_Five: false},
-    {Step_Six: false},
-    {Step_Seven: false},
-    {Step_Eight: false},
-    {Step_Nine: false},
-    {Step_Ten: false}
-]; // make sure form requires input and doesnt let you submit undefined stuff
+// // store checklist keys with underscores instead of spaces and add them later
+// let exampleChecklist = [
+//     {Step_One: true},
+//     {Step_Two: false},
+//     {Testing_Longer_name_to_See_What_Happens: false},
+//     {Step_Four: true},
+//     {Step_Five: false},
+//     {Step_Six: false},
+//     {Step_Seven: false},
+//     {Step_Eight: false},
+//     {Step_Nine: false},
+//     {Step_Ten: false}
+// ]; // make sure form requires input and doesnt let you submit undefined stuff
 
-test.addTodo('title1', 'example text', 'due', 2, exampleChecklist);
-test.addTodo('title2', 'desc', 'due', 6, [{abcd: false}]);
-test.addTodo('title3', 'desc', 'due', 0, [{efgh: false}]);
+// test.addTodo('title1', 'example text', 'due', 2, exampleChecklist);
+// test.addTodo('title2', 'desc', 'due', 6, [{abcd: false}]);
+// test.addTodo('title3', 'desc', 'due', 0, [{efgh: false}]);
 
-let testtwo = createProject('Another-Project');
-trackAllProjects(testtwo);
+// let testtwo = createProject('Another-Project');
+// trackAllProjects(testtwo);
 
-testtwo.addTodo('title4', 'desc', 'due', 5, [{ijkl: false}]);
-testtwo.addTodo('title5', 'desc', 'due', 10, [{mnop: false}]);
-testtwo.addTodo('title6', 'desc', 'due', 3, [{qrst: false}]);
+// testtwo.addTodo('title4', 'desc', 'due', 5, [{ijkl: false}]);
+// testtwo.addTodo('title5', 'desc', 'due', 10, [{mnop: false}]);
+// testtwo.addTodo('title6', 'desc', 'due', 3, [{qrst: false}]);
+
+retrieveFromStorage();
 
 handleDOM.allListView();
 
@@ -90,6 +94,7 @@ titleDropDown.addEventListener('click', (e) => {
 textarea.forEach(area => {
     area.addEventListener('input', (e) => {
         e.target.todo.desc = e.target.value;
+        updateStorage();
     });
 });
 
@@ -113,6 +118,7 @@ items.forEach(item => {
                 } else {
                     item.todo[key] = true;
                 };
+                updateStorage();
             };
         };
     });
@@ -122,6 +128,7 @@ function deleteTodo(e) {
     e.target.delTodo();
     let main = document.querySelector('.main');
     main.removeChild(e.target.parentElement.parentElement);
+    updateStorage();
 };
 delBtns.forEach(btn => { btn.addEventListener('click', deleteTodo) });
 
@@ -168,6 +175,7 @@ const observer = new MutationObserver(() => {
     textarea.forEach(area => {
         area.addEventListener('input', (e) => {
             e.target.todo.desc = e.target.value;
+            updateStorage();
         });
     });
 
@@ -188,6 +196,7 @@ const observer = new MutationObserver(() => {
                     } else {
                         item.todo[key] = true;
                     };
+                    updateStorage();
                 };
             };
         });
@@ -196,6 +205,7 @@ const observer = new MutationObserver(() => {
     delBtns.forEach(btn => {
         btn.removeEventListener('click', deleteTodo);
         btn.addEventListener('click', deleteTodo);
+        updateStorage();
     });
 });
 

@@ -1,6 +1,7 @@
 import { createProject } from "./createProject";
 import { handleDOM } from "./handleDOM";
 import { allProjects, trackAllProjects } from "./trackAllProjects";
+import { updateStorage } from "./handleStorage";
 
 let newCheckBtn = document.querySelector('.checklist-create button');
 
@@ -33,6 +34,7 @@ function submitForm(e) {
             });
 
             handleDOM.projectView(select.replace(/ /g, '-'));
+            updateStorage();
         };
     } else if (form.classList.contains('Add-Project')){
         let title = form[0].value;
@@ -42,6 +44,7 @@ function submitForm(e) {
             trackAllProjects(createProject(title));
             handleDOM.projectView(title);
         };
+        updateStorage();
     } else if (form.classList.contains('Delete-Project')) {
         let project = form[0].value;
 
@@ -58,6 +61,7 @@ function submitForm(e) {
                 handleDOM.allListView();
             };
         };
+        updateStorage();
     };
 };
 
