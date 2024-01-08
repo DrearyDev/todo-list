@@ -42,6 +42,22 @@ function submitForm(e) {
             trackAllProjects(createProject(title));
             handleDOM.projectView(title);
         };
+    } else if (form.classList.contains('Delete-Project')) {
+        let project = form[0].value;
+
+        if (project !== '') {
+            removeDialog();
+
+            for (let key in allProjects) {
+                if (allProjects[key].name === project.replace(/ /g, '-')) {
+                    allProjects.splice(key, 1);
+                };
+            };
+
+            if (document.querySelector('h2').innerText === project) {
+                handleDOM.allListView();
+            };
+        };
     };
 };
 
@@ -88,14 +104,17 @@ function showDialog() {
     dialog.style.display = 'flex';
 };
 
-function arrowClick(e) {
+function menuClick(e) {
     if (e.target.classList.contains('Add-Todo')) {
         handleDOM.addTodoForm();
         showDialog();
         newCheckBtn = document.querySelector('.checklist-create button');
         newCheckBtn.addEventListener('click', newCheck);
-    } else {
+    } else if (e.target.classList.contains('Add-Project')){
         handleDOM.addProjectForm();
+        showDialog();
+    } else if (e.target.classList.contains('Delete-Project')) {
+        handleDOM.deleteProjectForm();
         showDialog();
     };
 
@@ -106,4 +125,4 @@ function arrowClick(e) {
     submitBtn.addEventListener('click', submitForm);
 };
 
-export { arrowClick, removeDialog };
+export { menuClick, removeDialog };

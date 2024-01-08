@@ -11,7 +11,7 @@ const handleDOM = (() => {
     let h2, projectMenu;
     let main;
     let arrowMenuItems = ['Add-Project', 'Add-Todo'];
-    let settingsMenuItems = ['settings', 'menu', 'options'];
+    let settingsMenuItems = ['Delete-Project'];
     let projectMenuItems = allProjects.map(o => o.name);
 
 
@@ -314,6 +314,41 @@ const handleDOM = (() => {
         body.appendChild(dialog);
     };
 
+    const deleteProjectForm = () => {
+        const dialog = document.querySelector('dialog');
+
+        const form = document.createElement('form');
+        form.classList.add('Delete-Project');
+        form.method = 'dialog';
+        createIcon(CancelSvg, dialog);
+
+        const h2 = document.createElement('h2');
+        h2.innerText = 'Delete Project';
+        dialog.appendChild(h2);
+
+        const projectSelectDiv = document.createElement('div');
+        projectSelectDiv.classList.add('project-select');
+        const projectLabel = document.createElement('label');
+        projectLabel.innerText = 'Project:'
+        const projectSelect = document.createElement('select');
+        projectSelect.required = true;
+        for (let key in allProjects) {
+            let option = document.createElement('option');
+            option.innerText = allProjects[key].name.replace(/-/g, ' ');
+            projectSelect.appendChild(option);
+        };
+        projectSelectDiv.appendChild(projectLabel);
+        projectSelectDiv.appendChild(projectSelect);
+        form.appendChild(projectSelectDiv);
+
+        const submitBtn = document.createElement('button');
+        submitBtn.classList.add('submit');
+        submitBtn.innerText = 'Submit';
+        form.appendChild(submitBtn);
+
+        dialog.appendChild(form);
+    };
+
     const allListView = () => {
         if (!header) { createHeader() }
         else { content.innerText = '' };
@@ -370,12 +405,12 @@ const handleDOM = (() => {
         childList: true,
     };
 
-    observer.observe(document.querySelector('.content'), config)
+    observer.observe(document.querySelector('.content'), config);
 
     
 
 
-    return { allListView, projectView, addTodoForm, addProjectForm };
+    return { allListView, projectView, addTodoForm, addProjectForm, deleteProjectForm };
 })();
 
 export { handleDOM };

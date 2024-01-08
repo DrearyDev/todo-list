@@ -128,7 +128,9 @@ delBtns.forEach(btn => { btn.addEventListener('click', deleteTodo) });
 
 
 
-arrowOptions.forEach(option => { option.addEventListener('click', handleForms.arrowClick) });
+arrowOptions.forEach(option => { option.addEventListener('click', handleForms.menuClick) });
+
+settingsOptions.forEach(option => { option.addEventListener('click', handleForms.menuClick) });
 
 
 window.addEventListener('click', (e) => {
